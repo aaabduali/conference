@@ -66,7 +66,7 @@ public class LoginController {
         Users user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName",  user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 
-        modelAndView.setViewName("admin/layout");
+        modelAndView.setViewName("admin/base");
         return modelAndView;
     }
 

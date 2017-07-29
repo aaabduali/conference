@@ -1,60 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  lang="en"
-     layout:decorator="admin/layout" >
+     layout:decorator="admin/base" >
 <head>
+  <script th:inline="javascript">
+      $(function () {
 
-  <title>Kifiya | New Meeting</title>
+          //Date range picker
+          $('#reservation').daterangepicker()
+          //Date range picker with time picker
+          $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
 
-  <!-- Bootstrap -->
-  <link th:href="@{../vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
-  <!-- Font Awesome -->
-  <link th:href="@{../vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
-  <!-- NProgress -->
-  <link th:href="@{../vendors/nprogress/nprogress.css}" rel="stylesheet"/>
-  <!-- bootstrap-daterangepicker -->
-  <link th:href="@{../vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
-    <!-- bootstrap-wysiwyg -->
-    <link th:href="@{../vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet"/>
-    <!-- Select2 -->
-    <link th:href="@{../vendors/select2/dist/css/select2.min.css}" rel="stylesheet"/>
-    <!-- Switchery -->
-    <link th:href="@{../vendors/switchery/dist/switchery.min.css}" rel="stylesheet"/>
-    <!-- starrr -->
-    <link th:href="@{../vendors/starrr/dist/starrr.css}" rel="stylesheet"/>
-  <!-- Custom Theme Style -->
-  <link th:href="@{../build/css/custom.min.css}" rel="stylesheet"/>
-<!--scrippts -->
-    <script th:src="@{'/vendors/jquery/dist/jquery.min.js'}"></script>
-    <script src="../build/js/custom.min.js"></script>
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
-    <!-- jQuery Tags Input -->
-    <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-    <!-- Switchery -->
-    <script src="../vendors/switchery/dist/switchery.min.js"></script>
-    <!-- Select2 -->
-    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-    <!-- Parsley -->
-    <script src="../vendors/parsleyjs/src/vendor/inputevent.js"></script>
-    <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-    <script src="../vendors/parsleyjs/src/parsley/main.js"></script>
 
-    <!-- Autosize -->
-    <script src="../vendors/autosize/dist/autosize.min.js"></script>
-    <!-- jQuery autocomplete -->
-    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-    <!-- starrr -->
-    <script src="../vendors/starrr/dist/starrr.js"></script>
+      })
+  </script>
 </head>
 
-<body class="nav-md">
+<body class="hold-transition skin-blue sidebar-mini">
 
 
 
@@ -81,34 +42,50 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2"  class="form-horizontal form-label-left">
+          <form  th:action="@{/admin/meeting}" method="POST" th:object="${meeting}" role="form" class="form-horizontal form-label-left">
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Subject <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Subject <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12"/>
+                <input type="text" th:field="*{subject}"  required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Department <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Department <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12"/>
+                <input type="text"  th:field="*{department}" name="last-name" required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
+            </div>
+
+            <!--<div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
+              </label>
+              <div class="col-md-3 col-sm-3 col-xs-6">
+               <input type="datetime-local" name="start-time"  th:field="*{start_time}"  class="form-control"  />
+              </div>
+              <div class="col-md-3 col-sm-3 col-xs-6">
+                <input type="datetime-local"  name="end-time" id="end-time" th:field="*{end_time}" class="form-control"  />
+            </div>
+             </div>-->
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
+              </label>
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input class="form-control pull-right" id="reservationtime" type="text"/>
+              </div>
+              <!-- /.input group -->
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Time Range <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Venue <span class="required">*</span>
               </label>
-              <div class="col-md-3 col-sm-3 col-xs-6">
-               <input type="datetime-local" name="start-time" id="start-time" class="form-control" placeholder="dd/mm/yyyy hh:mm" />
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-6">
-                <input type="datetime-local" name="end-time" id="end-time" class="form-control" placeholder="dd/mm/yyyy hh:mm" />
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text"  th:value="1"  th:field="*{conferenceRoom}" name="last-name" required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
             </div>
-
            <!-- <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Attendees: </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -123,7 +100,7 @@
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Attendees: </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="tags_1" class="tags form-control"   type="text"/>
+                  <input  class="tags form-control" type="text"/>
 
               </div>
               </div>
@@ -151,27 +128,29 @@
 
 <!-- jQuery -->
 
-<!-- Bootstrap -->
+<!--
+ Bootstrap
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
+&lt;!&ndash; FastClick &ndash;&gt;
 <script src="../vendors/fastclick/lib/fastclick.js"></script>
-<!-- NProgress -->
+&lt;!&ndash; NProgress &ndash;&gt;
 <script src="../vendors/nprogress/nprogress.js"></script>
-<!-- bootstrap-daterangepicker -->
+&lt;!&ndash; bootstrap-daterangepicker &ndash;&gt;
 <script src="../vendors/moment/min/moment.min.js"></script>
 <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap-datetimepicker -->
+&lt;!&ndash; bootstrap-datetimepicker &ndash;&gt;
 <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-<!-- Ion.RangeSlider -->
+&lt;!&ndash; Ion.RangeSlider &ndash;&gt;
 <script src="../vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
-<!-- Bootstrap Colorpicker -->
+&lt;!&ndash; Bootstrap Colorpicker &ndash;&gt;
 <script src="../vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-<!-- jquery.inputmask -->
+&lt;!&ndash; jquery.inputmask &ndash;&gt;
 <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-<!-- jQuery Knob -->
+&lt;!&ndash; jQuery Knob &ndash;&gt;
 <script src="../vendors/jquery-knob/dist/jquery.knob.min.js"></script>
-<!-- Cropper -->
+&lt;!&ndash; Cropper &ndash;&gt;
 <script src="../vendors/cropper/dist/cropper.min.js"></script>
+-->
 
 <!-- Custom Theme Scripts -->
 <!--<script src="../build/js/custom.min.js"></script>-->

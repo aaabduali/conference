@@ -1,5 +1,6 @@
 package com.officemanagement.controller;
 
+import com.officemanagement.model.Meeting;
 import com.officemanagement.model.Users;
 import com.officemanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ public class AdminController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName",  user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("meeting",new Meeting());
         modelAndView.setViewName("admin/meeting");
+
         return modelAndView;
     }
     @RequestMapping(value = "/admin/meet")
