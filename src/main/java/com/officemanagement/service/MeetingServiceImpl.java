@@ -45,18 +45,18 @@ public class MeetingServiceImpl  implements MeetingService {
 
     @Override
     public void saveMeeting(Meeting meeting) {
-        SimpleDateFormat parser=new SimpleDateFormat("");
-        System.out.print(meeting.getEnd_time());
-        System.out.print(meeting.getStart_time());
+        System.out.println(meeting.getStart_time());
+        System.out.println(meeting.getEnd_time());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users user = userService.findUserByEmail(auth.getName());
         ConferenceRoom conferenceRoom=new ConferenceRoom();
         conferenceRoom.setId(1);
         meeting.setCalled_by(user);
         meeting.setConferenceRoom(conferenceRoom);
-        meeting.setDepartment(meeting.getDepartment());
+        meeting.setDate(meeting.getDate());
         meeting.setStart_time(meeting.getStart_time());
         meeting.setEnd_time(meeting.getEnd_time());
+        meeting.setDepartment(meeting.getDepartment());
         meeting.setSubject(meeting.getSubject());
         meetingRepository.save(meeting);
     }

@@ -2,20 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  lang="en"
      layout:decorator="admin/base" >
 <head>
-  <script th:inline="javascript">
-      $(function () {
-
-          //Date range picker
-          $('#reservation').daterangepicker()
-          //Date range picker with time picker
-          $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
 
 
-      })
-  </script>
+<script th:src="@{'/jquery.maskedinput.js'}"></script>
+  <script th:src="@{'/bower_components/jquery/dist/jquery.js'}"></script>
+    <script th:src="@{'/jquery-ui.js'}"></script>
+    <link rel="stylesheet" th:href="@{'/jquery-ui.css'}"/>
+    <script th:src="@{'/jquery.timepicker.js'}"></script>
+    <link rel="stylesheet" th:href="@{'/jquery.timepicker.css'}"/>
+    <link rel="stylesheet" th:href="@{'/bootstrap-datepicker.css'}"/>
+    <link rel="stylesheet" th:href="@{'/site.css'}"/>
+    <script th:src="@{'/site.js'}"></script>
+    <script th:src="@{'/bootstrap-datepicker.js'}"></script>
+    <script th:src="@{'/bower_components/moment/min/moment.min.js'}"></script>
+    <script th:src="@{'/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+    <script th:src="@{'/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'}"></script>
+    <link rel="stylesheet" th:href="@{'/bower_components/bootstrap/dist/css/bootstrap.min.css'}"/>
+    <link rel="stylesheet" th:href="@{'/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'}"/>
+    <script th:inline="javascript">
+ $( function() {
+        $( "#datepicker" ).datepicker();
+
+    } );
+</script>
+    <script th:inline="javascript">
+        $(function () {
+            $('#datetimepicker4').datetimepicker({
+                format: 'HH:mm:ss'
+            });
+        });
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'HH:mm:ss'
+            });
+        });
+    </script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 
 
 
@@ -58,32 +82,32 @@
                 <input type="text"  th:field="*{department}" name="last-name" required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
             </div>
-
-            <!--<div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
-              </label>
-              <div class="col-md-3 col-sm-3 col-xs-6">
-               <input type="datetime-local" name="start-time"  th:field="*{start_time}"  class="form-control"  />
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-6">
-                <input type="datetime-local"  name="end-time" id="end-time" th:field="*{end_time}" class="form-control"  />
-            </div>
-             </div>-->
             <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Date <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input placeholder="mm/dd/yyyy" th:field="*{date}"  id="datepicker" required="required" class="form-control col-md-7 col-xs-12"/>
+
+              </div>
+            </div>
+
+           <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
               </label>
-
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input class="form-control pull-right" id="reservationtime" type="text"/>
+              <div class="col-md-3 col-sm-3 col-xs-6">
+               <input type="text" name="start-time"  placeholder="hh:mm:ss" th:field="*{start_time}" id='datetimepicker3' class="form-control"  />
               </div>
-              <!-- /.input group -->
+              <div class="col-md-3 col-sm-3 col-xs-6">
+                <input type="text"  name="end-time" placeholder="hh:mm:ss" id='datetimepicker4' th:field="*{end_time}" class="form-control"  />
             </div>
+             </div>
+
 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" >Venue <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text"  th:value="1"  th:field="*{conferenceRoom}" name="last-name" required="required" class="form-control col-md-7 col-xs-12"/>
+                <input type="text"  disabled="true" th:value="1"  th:field="*{conferenceRoom}"  required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
             </div>
            <!-- <div class="form-group">
@@ -126,37 +150,6 @@
 
 
 
-<!-- jQuery -->
-
-<!--
- Bootstrap
-<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-&lt;!&ndash; FastClick &ndash;&gt;
-<script src="../vendors/fastclick/lib/fastclick.js"></script>
-&lt;!&ndash; NProgress &ndash;&gt;
-<script src="../vendors/nprogress/nprogress.js"></script>
-&lt;!&ndash; bootstrap-daterangepicker &ndash;&gt;
-<script src="../vendors/moment/min/moment.min.js"></script>
-<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-&lt;!&ndash; bootstrap-datetimepicker &ndash;&gt;
-<script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-&lt;!&ndash; Ion.RangeSlider &ndash;&gt;
-<script src="../vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
-&lt;!&ndash; Bootstrap Colorpicker &ndash;&gt;
-<script src="../vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-&lt;!&ndash; jquery.inputmask &ndash;&gt;
-<script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-&lt;!&ndash; jQuery Knob &ndash;&gt;
-<script src="../vendors/jquery-knob/dist/jquery.knob.min.js"></script>
-&lt;!&ndash; Cropper &ndash;&gt;
-<script src="../vendors/cropper/dist/cropper.min.js"></script>
--->
-
-<!-- Custom Theme Scripts -->
-<!--<script src="../build/js/custom.min.js"></script>-->
-
-<!-- Initialize datetimepicker -->
-<!-- from fraol-->
 
 </body>
 </html>

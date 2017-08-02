@@ -31,10 +31,11 @@ public class AdminController {
     public ModelAndView meeting()
     {
         ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("meeting",new Meeting());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName",  user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("meeting",new Meeting());
+        modelAndView.addObject("userName",  user.getName() + " " + user.getLastName());
+        modelAndView.addObject("email",  "("+user.getEmail()+")" );
         modelAndView.setViewName("admin/meeting");
 
         return modelAndView;

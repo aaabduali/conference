@@ -24,6 +24,7 @@
 
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" th:href="@{'/timepicker/bootstrap-timepicker.min.css'}"/>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -63,7 +64,7 @@
       })
   </script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -98,10 +99,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+          <img src="../../images/user.png" class="img-circle" alt="User Image"/>
         </div>
         <div class="info">
-          <p>Alexander Pierce</p>
+          <p th:text="*{userName}"></p>
+          <p th:text="*{email}"></p>
         </div>
       </div>
       
@@ -169,9 +171,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="https://kifiya.com">Kifiya Financial Technologies</a>.</strong> All rights
     reserved.
   </footer>
 
