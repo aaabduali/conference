@@ -2,7 +2,8 @@ package com.officemanagement.model;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
+/*import java.util.Date;*/
 import java.util.List;
 import java.util.Set;
 
