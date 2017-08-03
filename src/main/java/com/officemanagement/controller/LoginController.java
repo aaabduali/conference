@@ -67,7 +67,7 @@ public class LoginController {
         modelAndView.addObject("userName",  user.getName() + " " + user.getLastName());
         modelAndView.addObject("email",  "("+user.getEmail()+")" );
 
-        modelAndView.setViewName("admin/base");
+        modelAndView.setViewName("admin/calendar");
         return modelAndView;
     }
 

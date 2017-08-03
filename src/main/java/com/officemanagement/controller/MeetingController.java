@@ -6,6 +6,9 @@ import com.officemanagement.model.Users;
 import com.officemanagement.repository.MeetingRepository;
 import com.officemanagement.service.MeetingService;
 import com.officemanagement.service.UserService;
+import org.hibernate.JDBCException;
+import org.hibernate.exception.GenericJDBCException;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.PersistenceException;
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -47,12 +52,24 @@ public class MeetingController {
     @RequestMapping(value = "/admin/meeting", method = RequestMethod.POST)
     public ModelAndView newMeeting(@Valid Meeting meeting, BindingResult bindingResult)
     {
-        ModelAndView modelAndView=new ModelAndView();
 
-        meetingService.saveMeeting(meeting);
-        modelAndView.addObject("successMessage","Meeting has been successfully Scheduled");
+     ModelAndView modelAndView=new ModelAndView();
+     try {
+         meetingService.saveMeeting(meeting);
+         modelAndView.addObject("successMessage", "Meeting has been successfully Scheduled");
+         modelAndView.addObject("meeting",new Meeting());
+     }
+     catch (Exception e)
+     {
 
-        modelAndView.setViewName("admin/calendar");
+        bindingResult.rejectValue("start_time","error.meeting","The conference room is reserved for the time you provided");
+     }
+     if(bindingResult.hasErrors())
+     {
+            modelAndView.setViewName("admin/meeting");
+     }
+
+        modelAndView.setViewName("admin/meeting");
         return modelAndView;
     }
 }

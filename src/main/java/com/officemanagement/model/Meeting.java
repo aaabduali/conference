@@ -2,8 +2,8 @@ package com.officemanagement.model;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.sql.Date;
-/*import java.util.Date;*/
+
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +14,6 @@ import java.util.Set;
 @Table(name="meetings")
 @NamedQuery(name = "Meeting.fetchAllForCalendar",
         query="SELECT new Map(m.subject as title,concat( m.date,'T',m.start_time) as start,concat(m.date,'T',m.end_time) as end) from Meeting m" )
-/*query = "SELECT subject as title,concat(date,'T',start_time)as start,concat(date,'T',end_time) as end FROM Meeting"*/
 public class Meeting {
 
     @Id
@@ -29,7 +28,7 @@ public class Meeting {
     @ManyToOne
     private ConferenceRoom conferenceRoom;
 
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(name="start_time")
@@ -84,15 +83,7 @@ public class Meeting {
         this.called_by = called_by;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Time getStart_time() {
+     public Time getStart_time() {
         return start_time;
     }
 
@@ -114,5 +105,13 @@ public class Meeting {
 
     public void setAttendees(List<Users> attendees) {
         this.attendees = attendees;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

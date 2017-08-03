@@ -14,7 +14,7 @@
     <link rel="stylesheet" th:href="@{'/site.css'}"/>
     <script th:src="@{'/site.js'}"></script>
     <script th:src="@{'/bootstrap-datepicker.js'}"></script>
-    <!--<script th:src="@{'/bower_components/moment/min/moment.min.js'}"></script>-->
+
     <script th:src="@{'/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
     <script th:src="@{'/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'}"></script>
     <link rel="stylesheet" th:href="@{'/bower_components/bootstrap/dist/css/bootstrap.min.css'}"/>
@@ -39,7 +39,7 @@
     </script>
 </head>
 
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-yellow sidebar-mini">
 
 
 
@@ -60,14 +60,20 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
 
-            <h2>Please,<small>Fill in the form</small></h2>
-
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
           <br />
           <form  th:action="@{/admin/meeting}" method="POST" th:object="${meeting}" role="form" class="form-horizontal form-label-left">
-
+              <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <strong>Error!</strong> <label th:if="${#fields.hasErrors('start_time')}" th:errors="*{start_time}"></label>
+              </div>
+             <!-- <div class="form-control">
+              <div class=" col-md-12 col-sm-12 col-xs-12">
+                  <label	th:if="${#fields.hasErrors('start_time')}" th:errors="*{start_time}"
+                            class="alert alert-danger" ></label> </div>
+        </div>-->
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" >Subject <span class="required">*</span>
               </label>
@@ -86,19 +92,19 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" >Date <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input placeholder="mm/dd/yyyy" th:field="*{date}"  id="datepicker" required="required" class="form-control col-md-7 col-xs-12"/>
+                <input placeholder="mm/dd/yyyy" th:field="*{date}"   id="datepicker" required="required" class="form-control col-md-7 col-xs-12"/>
 
               </div>
             </div>
 
            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
+              <label  class="control-label col-md-3 col-sm-3 col-xs-12" >Time Range <span class="required">*</span>
               </label>
               <div class="col-md-3 col-sm-3 col-xs-6">
-               <input type="text" name="start-time"  placeholder="hh:mm:ss" th:field="*{start_time}" id='datetimepicker3' class="form-control"  />
+               <input type="text" name="start-time"  placeholder="hh:mm:ss" required="required" th:field="*{start_time}" id='datetimepicker3' class="form-control"  />
               </div>
               <div class="col-md-3 col-sm-3 col-xs-6">
-                <input type="text"  name="end-time" placeholder="hh:mm:ss" id='datetimepicker4' th:field="*{end_time}" class="form-control"  />
+                <input type="text"  name="end-time" placeholder="hh:mm:ss" required="required" id='datetimepicker4' th:field="*{end_time}" class="form-control"  />
             </div>
              </div>
 
@@ -107,20 +113,11 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" >Venue <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text"  disabled="true" th:value="1"  th:field="*{conferenceRoom}"  required="required" class="form-control col-md-7 col-xs-12"/>
+                <input type="text"  disabled="true"   th:field="*{conferenceRoom}"  required="required" class="form-control col-md-7 col-xs-12"/>
               </div>
             </div>
-           <!-- <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Attendees: </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="tags_1" class="tags form-control"  data-tagsinput-init="true" style="display: none;" type="text"/>
-                  <div id="tags_1_tagsinput" class="tagsinput" style="width: auto; min-height: 100px; height: 100px;">
-                <div id="tags_1_addTag"><input id="tags_1_tag" value="" data-default="add a tag" style="color: rgb(102, 102, 102); width: 72px;"/></div>
-                      <div class="tags_clear"></div>
-                <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
-              </div>
-            </div>
--->
+
+
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Attendees: </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -147,8 +144,6 @@
   </div>
 </div>
 <!-- /page content -->
-
-
 
 
 </body>
